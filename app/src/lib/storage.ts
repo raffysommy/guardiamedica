@@ -24,6 +24,10 @@ export function saveAppData(data: AppData): void {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
 }
 
+export function clearAllData(): void {
+  localStorage.removeItem(STORAGE_KEY);
+}
+
 export function scheduleKey(year: number, month: number): string {
   return `${year}-${String(month).padStart(2, '0')}`;
 }

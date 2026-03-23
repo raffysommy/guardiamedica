@@ -189,11 +189,81 @@ const ScheduleView: React.FC = () => {
 
   if (shifts.length === 0) {
     return (
-      <Card className="border-0 shadow-sm text-center py-5" style={{ borderRadius: 16 }}>
-        <Card.Body>
-          <div style={{ fontSize: '3rem' }}>📋</div>
-          <h5 className="text-muted mt-3">Nessun calendario generato</h5>
-          <p className="text-muted">Seleziona mese e anno, poi premi <strong>Genera Calendario</strong>.</p>
+      <Card className="border-0 shadow-sm" style={{ borderRadius: 16 }}>
+        <Card.Body className="py-5 px-4">
+          <div className="text-center mb-4">
+            <div style={{ fontSize: '3rem' }}>📋</div>
+            <h5 className="text-muted mt-3">Nessun calendario generato</h5>
+            <p className="text-muted">Seleziona mese e anno, poi premi <strong>Genera Calendario</strong>.</p>
+          </div>
+
+          <hr className="my-4" />
+
+          <div className="mx-auto" style={{ maxWidth: 700 }}>
+            <h5 className="mb-3" style={{ color: '#2c5282' }}>📖 Come usare l'app</h5>
+
+            <div className="d-flex align-items-start gap-3 mb-3">
+              <span className="badge rounded-circle bg-primary d-flex align-items-center justify-content-center flex-shrink-0" style={{ width: 32, height: 32, fontSize: '0.95rem' }}>1</span>
+              <div>
+                <strong>Aggiungi i medici</strong>
+                <p className="text-muted mb-0">
+                  Vai alla sezione <strong>👨‍⚕️ Medici</strong> nella barra in alto. Per ogni medico puoi impostare il nome,
+                  il numero massimo di turni al mese e i colleghi preferiti (affinità).
+                </p>
+              </div>
+            </div>
+
+            <div className="d-flex align-items-start gap-3 mb-3">
+              <span className="badge rounded-circle bg-primary d-flex align-items-center justify-content-center flex-shrink-0" style={{ width: 32, height: 32, fontSize: '0.95rem' }}>2</span>
+              <div>
+                <strong>Imposta le indisponibilità</strong>
+                <p className="text-muted mb-0">
+                  Nella sezione <strong>🚫 Indisponibilità</strong> puoi selezionare le date in cui ogni medico non è disponibile
+                  (ferie, permessi, ecc.).
+                </p>
+              </div>
+            </div>
+
+            <div className="d-flex align-items-start gap-3 mb-3">
+              <span className="badge rounded-circle bg-primary d-flex align-items-center justify-content-center flex-shrink-0" style={{ width: 32, height: 32, fontSize: '0.95rem' }}>3</span>
+              <div>
+                <strong>Genera il calendario</strong>
+                <p className="text-muted mb-0">
+                  Torna qui, seleziona <strong>mese e anno</strong> dai menù sopra e premi <strong>Genera Calendario</strong>.
+                  L'algoritmo distribuirà i turni in modo equo, evitando notti consecutive e rispettando le preferenze.
+                </p>
+              </div>
+            </div>
+
+            <div className="d-flex align-items-start gap-3 mb-3">
+              <span className="badge rounded-circle bg-primary d-flex align-items-center justify-content-center flex-shrink-0" style={{ width: 32, height: 32, fontSize: '0.95rem' }}>4</span>
+              <div>
+                <strong>Modifica manualmente (opzionale)</strong>
+                <p className="text-muted mb-0">
+                  Puoi trascinare i nomi dei medici da un turno all'altro, oppure dalla lista laterale alla tabella.
+                  Per rimuovere un'assegnazione, trascina il nome nel cestino 🗑️.
+                </p>
+              </div>
+            </div>
+
+            <div className="d-flex align-items-start gap-3 mb-3">
+              <span className="badge rounded-circle bg-primary d-flex align-items-center justify-content-center flex-shrink-0" style={{ width: 32, height: 32, fontSize: '0.95rem' }}>5</span>
+              <div>
+                <strong>Salva e scarica il PDF</strong>
+                <p className="text-muted mb-0">
+                  Quando sei soddisfatto, premi <strong>💾 Salva</strong> per memorizzare il calendario.
+                  Usa <strong>📄 Esporta PDF</strong> per scaricare una versione stampabile.
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-4 p-3 rounded-3" style={{ backgroundColor: '#e8f4fd' }}>
+              <small className="text-muted">
+                💡 <strong>Suggerimento:</strong> i tuoi dati vengono salvati nel browser — quando torni
+                li ritroverai. Per ricominciare da zero, usa il pulsante <strong>🗑️ Cancella Tutto</strong> nella barra di navigazione.
+              </small>
+            </div>
+          </div>
         </Card.Body>
       </Card>
     );

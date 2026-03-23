@@ -1,5 +1,5 @@
 import { HashRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
-import { Container, Navbar, Nav, Alert, Spinner } from 'react-bootstrap';
+import { Container, Navbar, Nav, Alert, Spinner, Button } from 'react-bootstrap';
 import Controls from './components/Controls';
 import ScheduleView from './components/ScheduleView';
 import DoctorManagement from './components/DoctorManagement';
@@ -8,6 +8,13 @@ import { useAppStore } from './store';
 
 function App() {
   const { loading, error } = useAppStore();
+  const wipeAllData = useAppStore((s) => s.actions.wipeAllData);
+
+  const handleWipe = () => {
+    if (window.confirm('⚠️ Sei sicuro?\n\nQuesta azione cancellerà TUTTI i dati: medici, calendari, indisponibilità.\n\nL\'operazione non è reversibile!')) {
+      wipeAllData();
+    }
+  };
 
   return (
     <Router>
@@ -55,6 +62,15 @@ function App() {
                 >
                   🚫 Indisponibilità
                 </Nav.Link>
+                <Button
+                  variant="outline-danger"
+                  size="sm"
+                  className="ms-2 px-3 py-2 rounded-3 d-flex align-items-center gap-1"
+                  style={{ fontSize: '0.9rem' }}
+                  onClick={handleWipe}
+                >
+                  🗑️ Cancella Tutto
+                </Button>
               </Nav>
             </Navbar.Collapse>
           </Container>

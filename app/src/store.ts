@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 import type { Doctor, Shift, History } from './lib/models';
-import { loadAppData, saveAppData, scheduleKey } from './lib/storage';
+import { loadAppData, saveAppData, clearAllData, scheduleKey } from './lib/storage';
 import { generateSchedule, isContiguous as checkContiguous, isEveningShift } from './lib/scheduler';
 import { exportSchedulePdf } from './lib/pdfExport';
 import { v4 as uuidv4 } from 'uuid';
@@ -101,6 +101,7 @@ interface AppState {
     undo: () => void;
     redo: () => void;
     exportPdf: () => void;
+    wipeAllData: () => void;
   };
 }
 
@@ -344,6 +345,17 @@ export const useAppStore = create<AppState>()(
         exportPdf: () => {
           const { doctors, shifts, year, month, holidays } = get();
           exportSchedulePdf(doctors, shifts.present, year, month, holidays);
+        },
+
+        wipeAllData: () => {
+          clearAllData();
+          set({
+            doctors: [],
+            shifts: { past: [], present: [], future: [] },
+            holidays: [],
+            isScheduleDirty: false,
+            error: null,
+          });
         },
       },
     }),
