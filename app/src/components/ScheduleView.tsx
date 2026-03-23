@@ -5,6 +5,11 @@ import {
   DndContext,
   useDraggable,
   useDroppable,
+  MouseSensor,
+  TouchSensor,
+  KeyboardSensor,
+  useSensor,
+  useSensors,
   type DragEndEvent,
   type UniqueIdentifier,
 } from '@dnd-kit/core';
@@ -32,6 +37,10 @@ const DraggableBadge = ({ doctorId, doctorName, shiftId }: { doctorId: string; d
         opacity: isDragging ? 0.4 : 1,
         fontSize: '0.9rem',
         fontWeight: 500,
+        minHeight: 36,
+        minWidth: 44,
+        touchAction: 'none',
+        userSelect: 'none',
       }}
     >
       {doctorName}
@@ -57,6 +66,9 @@ const DraggablePoolDoctor = ({ doctorId, doctorName }: { doctorId: string; docto
         opacity: isDragging ? 0.4 : 1,
         backgroundColor: isDragging ? '#e8f4fd' : '#f0f7ff',
         fontSize: '0.95rem',
+        minHeight: 44,
+        touchAction: 'none',
+        userSelect: 'none',
       }}
     >
       <span style={{ fontSize: '1.1rem' }}>👨‍⚕️</span>
@@ -165,6 +177,12 @@ const ScheduleView: React.FC = () => {
   const doctors = useAppStore((s) => s.doctors);
   const holidays = useAppStore((s) => s.holidays);
   const { updateShiftAssignment, unassignDoctorFromShift } = useAppStore((s) => s.actions);
+
+  const sensors = useSensors(
+    useSensor(MouseSensor, { activationConstraint: { distance: 5 } }),
+    useSensor(TouchSensor, { activationConstraint: { delay: 200, tolerance: 8 } }),
+    useSensor(KeyboardSensor)
+  );
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
@@ -288,7 +306,7 @@ const ScheduleView: React.FC = () => {
   };
 
   return (
-    <DndContext onDragEnd={handleDragEnd}>
+    <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
       <Row className="g-3">
         {/* Doctor pool */}
         <Col lg={2} md={3}>
